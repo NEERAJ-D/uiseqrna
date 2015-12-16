@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RNA Visulaization</title>
+
+<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="http://www.amcharts.com/lib/3/serial.js"></script>
+<script src="http://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/linechart.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.10/js/dataTables.bootstrap.min.js"></script>
+<script src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="http://www.amcharts.com/lib/3/xy.js"></script>
+<script src="http://www.amcharts.com/lib/3/themes/light.js"></script>
+<link href="/css/normalize-e465cb86.css" media="screen" rel="stylesheet"
+	type="text/css" />
+<link href="/css/foundation.min-978d4ce8.css" media="screen"
+	rel="stylesheet" type="text/css" />
+<link href="/css/tomorrow-d7cf0921.css" media="screen" rel="stylesheet"
+	type="text/css" />
+<link href="/css/c3-b03125fa.css" media="screen" rel="stylesheet"
+	type="text/css" />
+<link href="/css/style-99fb8989.css" media="screen" rel="stylesheet"
+	type="text/css" />
+<link href="/css/samples/simple_xy_multiple-da39a3ee.css" media="screen"
+	rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div class="content">
+
+		<!-- <nav bar> -->
+		<div class="top-nav">
+			<div class="nav-bar">
+				<nav class="navbar navbar-default">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<a class="navbar-brand" href="#"><b>RNA Seq Visualization</b></a>
+						</div>
+						<ul class="nav navbar-nav">
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" role="button" aria-haspopup="true"
+								aria-expanded="false">Experimental Type<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="#" id="kallisto">Kallisto</a></li>
+									<li><a href="#" id="rsem">RSEM</a></li>
+									<li><a href="#" id="sailfish">Sailfish</a></li>
+								</ul></li>
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" role="button" aria-haspopup="true"
+								aria-expanded="false">Experimental Data<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="#" id="kallistodata">Kallisto Data</a></li>
+									<li><a href="#" id="rsemdata">RSEM Data</a></li>
+									<li><a href="#" id="sailfishdata">Sailfish Data</a></li>
+								</ul></li>
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" role="button" aria-haspopup="true"
+								aria-expanded="false">Measures<span class="caret"></span></a>
+								<ul class="dropdown-menu" id="measuredropdown">
+									<li><a href="#" id="pearson">Pearson Correlation</a></li>
+									<li><a href="#" id="spearman">Spearman Correlation</a></li>
+									<li><a href="#" id="meanabsoluteerror">Mean Absolute
+											Error</a></li>
+								</ul></li>
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" role="button" aria-haspopup="true"
+								aria-expanded="false">Interactive Plots<span class="caret"></span></a>
+								<ul class="dropdown-menu" id="interactiveplots">
+									<li><a href="#" id="seqnum">SeqNum</a></li>
+									<li><a href="#" id="libfrac">LibFrac</a></li>
+								</ul></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+
+		<div class="data-content">
+			<!-- <filters div > -->
+			<div class="title-and-filter" id="titleandfilter">
+				<h2 id="mainheading">Kallisto</h2>
+				<p id="datasizeinfo">Kallisto table has 86331 records in total.</p>
+				<div class="filters">
+					<div class="row">
+						<div class="form-group">
+							<div class="col-md-2">
+								<label for="xaxis" class="control-label">Select X-axis</label> <select
+									class="form-control" id="xaxis">
+									<option>target_id</option>
+									<option>length</option>
+									<option>eff_length</option>
+									<option>est_counts</option>
+									<option>TPM</option>
+								</select>
+							</div>
+							<div class="col-md-2">
+								<label for="yaxis" class="control-label">Select Y-axis</label> <select
+									class="form-control" id="yaxis">
+									<option>length</option>
+									<option>eff_length</option>
+									<option>est_counts</option>
+									<option>TPM</option>
+								</select>
+							</div>
+							<div class="col-md-2">
+								<label for="noofrecords" class="control-label">Records
+									to Show</label> <select class="form-control" id="noofrecords">
+									<option>50</option>
+									<option>100</option>
+									<option>500</option>
+									<option>1000</option>
+								</select>
+							</div>
+							<div class="col-md-2">
+								<label for="startrange" class="control-label">Start
+									Range </label> <input type="text" class="form-control" id="startrange">
+							</div>
+							<div class="col-md-2">
+								<button id="plot" class="btn btn-primary"
+									style="margin-top: 24px;">Plot Chart</button>
+							</div>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 10px;">
+						<div class="form-group">
+							<div class="col-md-2">
+								<label for="charttype" class="control-label">Type of
+									Chart</label> <select class="form-control" id="charttype">
+									<option>Line Chart</option>
+									<option>Bar Chart</option>
+									<option>Scatter Chart</option>
+								</select>
+							</div>
+							<div class="col-md-2" style="margin-top: 24px;">
+								<div class="checkbox">
+									<label><input type="checkbox" id="aggregate"><b>Aggregate</b></label>
+								</div>
+							</div>
+							<div class="col-md-2" style="margin-top: 24px;">
+								<div class="checkbox">
+									<label><input type="checkbox" id="transform"><b>Log
+											Transform</b></label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+			</div>
+			<!-- <main data table> -->
+			<div class="data-table" id="datatable">
+				<h2 id="heading"></h2>
+				<table id="example" class="display" style="width: 100%"></table>
+				<h2 id="secondheading"></h2>
+				<table id="accumulated" class="display" style="width: 100%"></table>
+			</div>
+
+			<!-- <measures filters div > -->
+			<div class="measure-filter" id="measurefilter" style="display: none;">
+				<h2 id="measureheading"></h2>
+				<div class="filters">
+					<div class="row">
+						<div class="form-group">
+							<div class="col-md-2">
+								<label for="tabletype" class="control-label">Select
+									Table type</label> <select class="form-control" id="tabletype">
+									<option>kallisto</option>
+									<option>rsem_quant</option>
+									<option>sailfish</option>
+								</select>
+							</div>
+							<div class="col-md-2">
+								<label for="parameter" class="control-label">Select
+									Parameter</label> <select class="form-control" id="parameter">
+									<option>est_counts</option>
+									<option>TPM</option>
+								</select>
+							</div>
+							<div class="col-md-2">
+								<button id="measure" class="btn btn-primary"
+									style="margin-top: 24px;">Measure</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+			</div>
+
+			<!-- <interactive filters div > -->
+			<div class="interactive-filter" id="interactivefilter"
+				style="display: none;">
+				<h2 id="interactiveheading"></h2>
+				<hr>
+			</div>
+
+			<!-- <measure info data> -->
+			<div id="measureinfo">
+				<p id="measureinfodata"></p>
+			</div>
+			<!-- <main data chart> -->
+			<div class="data-chart" id="datachart">
+				<div id="chartdiv"></div>
+			</div>
+			<h1 class='title'>Interactive Plots</h1>
+			<div class='chart'>
+				<div id='chart'></div>
+			</div>
+			<div id='ace-error'></div>
+			<div class='sourcecode margin-medium-v margin-small-h' id="interactivec3">
+				<h3>SeqNum Interactive Plots</h3>
+				<div class='c3-editor' id='javascript-editor'>
+				var chart = c3.generate({ data });
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Javascript -->
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/js/scripts.js"></script>
+
+</body>
+</html>
