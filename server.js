@@ -124,3 +124,34 @@ res.writeHead(200,{"Content-Type":"text/json","Access-Control-Allow-Origin":"*"}
 res.end(JSON.stringify( rows));
 });
 });
+
+
+//pearson-corelation plot
+app.get('/rnaseq/home/correlation/plot',function(req,res){
+var xaxis;
+var yaxis;
+var tablename;
+var pid;
+for(var propName in req.query)
+{
+if(req.query.hasOwnProperty(propName))
+{console.log(propName,req.query[propName]);}
+if(propName == 'xaxis')
+{console.log('the x values are  '+ req.query[propName]);xaxis = req.query[propName];}
+if(propName == 'yaxis')
+{console.log('the y-values are '+req.query[propName]);yaxis = req.query[propName];}
+if(propName == 'type')
+{console.log('The table name::'+req.query[propName]);tablename = req.query[propName];}
+if(propName == 'pid')
+{pid = req.query[propName];}
+}
+var count;
+var truth = 'truth';
+var sqlstmt = 'select truth.Name,'+tablename+'.'+xaxis+','+truth+'.'+yaxis+' from '+tablename+','+truth+' where '+truth+'.Name='+tablename+'.'+pid+' order by '+tablename+'.'+xaxis;
+var countquery  = connection.query(sqlstmt,[tablename,truth,tablename,tablename,pid],function(err,rows,fields){
+console.log(countquery.sql);
+console.log(rows);
+res.writeHead(200,{"Content-Type":"text/json","Access-Control-Allow-Origin":"*"});
+res.end(JSON.stringify(rows));
+});
+});
