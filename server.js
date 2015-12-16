@@ -60,3 +60,30 @@ res.writeHead(200,{"Content-Type":"text/json","Access-Control-Allow-Origin":"*"}
 res.end(JSON.stringify(rows));
 });
 });
+
+
+app.get('/rnaseq/home/scatter',function(req,res){
+var xaxis;
+var yaxis;
+var tablename;
+for(var propName in req.query)
+{
+if(req.query.hasOwnProperty(propName))
+{
+console.log(propName,req.query[propName]);
+}
+if(propName == 'xaxis')
+{xaxis = req.query[propName];}
+if(propName == 'yaxis')
+{yaxis = req.query[propName];}
+if(propName == 'type')
+{tablename = req.query[propName];}
+}
+var sqlstmt = 'select min(??) as initialXValue , min(??) as initialValue,max(??) as finalXValue, max(??) as finalValue from ??';
+var queryexec = connection.query(sqlstmt, [xaxis,yaxis,xaxis,yaxis,tablename], function(err,rows,fields) {
+console.log(queryexec.sql);
+//console.log(rows);
+res.writeHead(200,{"Content-Type":"text/json","Access-Control-Allow-Origin":"*"});
+res.end(JSON.stringify(rows));
+});
+});
