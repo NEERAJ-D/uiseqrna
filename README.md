@@ -1,6 +1,12 @@
 # uiseqrna
 CSE 549 Project deals with UI rna SEQUENCE
 
+Problem Statement
+
+The quantifiers like RSEM, sailfish, kallisto are used to report the expression level of different transcripts in the sample corresponding to the reads. The output from these quantifiers are numerically intensive and visually provide little visual aid to the user. The development of this interactive web application provides visual comparisons and important statistics regarding the data. The user can select the abundance estimates and can plot various charts like line, bar , scatter plots that shall enable the user to compare the different metrics and would enable the user to carry out comparative studies.
+
+Introduction:
+The project deals with UI visualization and the web application provides a rich user interface that is connected to the backend server technologies that provide the user with the capabilities such as selection of the various abundance estimates that the user can select and can plot against each other. The web application also provides a combined plot where the different quantifier results are plotted in the same chart. The different capabilites provided include providing a log transform to plot the graph of small values that the log transform sufficiently magnifies to provide a better scale aspect ratio.
 
 Dataset:
 
