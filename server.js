@@ -182,3 +182,7 @@ res.end(JSON.stringify(pearsonr));
 console.log("end of execution");
 });
 });
+
+var listenserver = app.listen(3000,"0.0.0.0",function(){
+console.log('listening on 3000');
+});
