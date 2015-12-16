@@ -36,3 +36,15 @@ res.writeHead(200,{"Content-Type":"text/json","Access-Control-Allow-Origin":"*"}
 res.end(JSON.stringify(rows));
 });
 });
+
+
+//SeqNum - truth vs NumReads sailfish , est_counts kallisto, expected_count rsem_quant
+app.get('/rnaseq/home/comparison/estimatedcount',function(req,res){
+var sqlstmt = 'select truth.Name,truth.SeqNum/2,sailfish.NumReads,kallisto.est_counts,rsem_quant.expected_count from truth,sailfish,kallisto,rsem_quant where truth.Name = sailfish.Name and truth.Name = kallisto.target_id and truth.Name = rsem_quant.transcript_id';
+var queryexec = connection.query(sqlstmt,  function(err,rows,fields) {
+console.log(queryexec.sql);
+//console.log(rows);
+res.writeHead(200,{"Content-Type":"text/json","Access-Control-Allow-Origin":"*"});
+res.end(JSON.stringify(rows));
+});
+});
