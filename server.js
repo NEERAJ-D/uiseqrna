@@ -155,3 +155,30 @@ res.writeHead(200,{"Content-Type":"text/json","Access-Control-Allow-Origin":"*"}
 res.end(JSON.stringify(rows));
 });
 });
+
+
+//pearson coefficient caluclated
+app.get('/rnaseq/home/measures/pearson',function(req,res){
+var pearsonr=0.00;
+var examplenum = 0.0026659337159251418;
+for(var propName in req.query)
+{if(req.query.hasOwnProperty(propName))
+{console.log(propName,req.query[propName]);}
+if(propName == 'xaxis')
+{console.log('the x values are  '+ req.query[propName]);xaxis = req.query[propName];}
+if(propName == 'yaxis')
+{console.log('the y-values are '+req.query[propName]);yaxis = req.query[propName];}
+if(propName == 'type'){console.log('The table name::'+req.query[propName]);tablename = req.query[propName];}
+if(propName == 'pid'){pid = req.query[propName];}
+}
+res.writeHead(200,{"Content-Type":"application/text","Access-Control-Allow-Origin":"*"});
+console.log('pearson');
+var sqlpearson  = 'select ((count('+tablename+'.'+xaxis+')*(sum('+tablename+'.'+xaxis+' * truth.'+yaxis+')))-(sum('+tablename+'.'+xaxis+') * sum(truth.'+yaxis +')))/ sqrt((count('+tablename+'.'+xaxis+') * sum(pow('+tablename+'.'+xaxis+',2)) - pow(sum(truth.'+yaxis+'),2))* (count(truth.'+yaxis+')* sum(pow(truth.'+yaxis+',2)) - pow(sum(truth.'+yaxis+'),2)) ) as pearsonr from '+tablename+',truth where truth.Name = '+tablename+'.'+pid;
+var queryexec = connection.query(sqlpearson, [tablename], function(err,rows,fields) {
+console.log(queryexec.sql);
+console.log(rows[0].pearsonr);
+pearsonr = rows[0].pearsonr;
+res.end(JSON.stringify(pearsonr));
+console.log("end of execution");
+});
+});
