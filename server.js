@@ -87,3 +87,40 @@ res.writeHead(200,{"Content-Type":"text/json","Access-Control-Allow-Origin":"*"}
 res.end(JSON.stringify(rows));
 });
 });
+
+
+app.get('/rnaseq/search',function(req,res){
+var field;
+var tablename;
+var field;
+var value;
+for(var propName in req.query)
+{
+if(req.query.hasOwnProperty(propName))
+{
+console.log(propName,req.query[propName]);
+}
+if(propName == 'field')
+{
+console.log('field to be searched  '+ req.query[propName]);
+field = req.query[propName];
+}
+if(propName == 'value')
+{
+console.log('Searching the value'+ req.query[propName]);
+value = req.query[propName];
+}
+if(propName == 'type')
+{
+console.log('The table name'+req.query[propName]);
+tablename = req.query[propName];
+}
+}
+console.log('Searching...');
+var sqlstmt = 'select * from ?? where gccontent <> ""';
+var queryexec = connection.query(sqlstmt, [tablename], function(err,rows,fields) {
+console.log(queryexec.sql);
+res.writeHead(200,{"Content-Type":"text/json","Access-Control-Allow-Origin":"*"});
+res.end(JSON.stringify( rows));
+});
+});
