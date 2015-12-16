@@ -41,6 +41,7 @@ Conclusion:
 The web application project provides the user a rich user interface that the user can access and comparatively study and plot different parameters against each other. The study of the abundance estimates graphically enhances the quality of the study and provides better insights into observing visual trends. The visual help definitely propels the quality of study and would be able to present a complete picture of the output of the quantifiers.
 
 References:
+
 [1] Pearson Correlation
 https://en.wikipedia.org/wiki/Pearson_product-moment_correlation_coefficient
 
