@@ -73,3 +73,43 @@ transform = req.query[propName];
 }
 
 }
+
+
+if(aggregate == 'false')
+{
+console.log('xaxis selected is '+xaxis);
+console.log('tablename selected is '+tablename);
+console.log('transcript id'+transcriptid);
+//var columns = [transcriptid,xaxis,yaxis];
+var columns = [transcriptid,xaxis,yaxis];
+
+
+//var sqlstatement = 'select '+ connection.escape(xaxis)+','+connection.escape(yaxis) +' from '+ connection.escape(tablename); //+'  where '+connection.escape(yaxis) + '<'+connection.escape(range);
+//var queryexec = connection.query(sqlstatement,function(err,rows,fields){
+
+//var sqlstmt = 'select ?? from ?? order by ?? limit '+connection.escape(offset) + ',' + connection.escape(range);
+var sqlstmt;
+if(transform == 'true')
+{
+
+sqlstmt = 'select ??,?? as ??,log(??) as ?? from ?? order by ?? limit '+offset+','+range;
+var queryexec = connection.query(sqlstmt, [transcriptid,xaxis,xaxis,yaxis,yaxis,tablename,xaxis], function(err,rows,fields) {
+console.log(queryexec.sql);
+console.log(rows);
+//console.log();
+res.writeHead(200,{"Content-Type":"text/json","Access-Control-Allow-Origin":"*"});
+//res.end(rows);
+//res.end('this is the end ');
+res.end(JSON.stringify( rows));
+});
+}
+else
+{
+sqlstmt = 'select ?? from ?? order by ?? limit '+offset+','+range;
+var queryexec = connection.query(sqlstmt, [columns,tablename,xaxis], function(err,rows,fields) {
+console.log(queryexec.sql);
+console.log(rows);
+//console.log();
+res.writeHead(200,{"Content-Type":"text/json","Access-Control-Allow-Origin":"*"});
+//res.end(rows);
+//res.end('this is the end ');
