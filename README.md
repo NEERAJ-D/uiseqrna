@@ -60,6 +60,17 @@ http://www.sitepoint.com/using-node-mysql-javascript-client/
 [6]MySQL
 http://www.w3schools.com/sql/
 
+[7] Data Ingestion in SQL
+http://stackoverflow.com/questions/14127529/mysql-import-data-from-csv-using-load-data-infile
+
+[8] Highcharts
+http://www.highcharts.com/
+
+[9] Amcharts
+http://www.amcharts.com/
+
+[10] c3 scripting library
+http://c3js.org/
 
 
 
