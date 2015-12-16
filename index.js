@@ -113,3 +113,28 @@ console.log(rows);
 res.writeHead(200,{"Content-Type":"text/json","Access-Control-Allow-Origin":"*"});
 //res.end(rows);
 //res.end('this is the end ');
+res.end(JSON.stringify( rows));
+});
+}
+//var queryexec = connection.query(sqlstmt, [columns,tablename,xaxis], function(err,rows,fields) {
+//console.log(queryexec.sql);
+//console.log(rows);
+//res.writeHead(200,{"Content-Type":"text/json","Access-Control-Allow-Origin":"*"});
+//res.end(JSON.stringify( rows));
+//});
+}
+else if(aggregate=='true')
+{
+console.log('xaxis selected is '+xaxis);
+console.log('tablename selected is '+tablename);
+var sqlstmt = 'select ??,count(??) as count from ?? group by ?? order by ?? limit '+offset+','+range;
+var queryexec = connection.query(sqlstmt, [xaxis,xaxis,tablename,xaxis,xaxis], function(err,rows,fields) {
+console.log(queryexec.sql);
+console.log(rows);
+res.writeHead(200,{"Content-Type":"text/json","Access-Control-Allow-Origin":"*"});
+//res.end(rows);
+//res.end('this is the end ');
+res.end(JSON.stringify( rows));
+});
+}
+});
