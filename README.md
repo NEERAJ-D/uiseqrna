@@ -15,9 +15,13 @@ The quantifier output files are produced in the form of CSV files. These CSVs ar
 Consider the following mapping for the MySQL tables to the data files that are present
 RSEM 
 rsem_quant.csv -> rsem_quant table
+
 kallisto.csv -> kallisto table
+
 sailfish.csv -> sailfish table
+
 config.pro -> truth table
+
 
 The Data that is used for the purpose of plotting is the output of the quantifiers like sailfish, rsem , kallisto against the truth shall be used for the purpose of plotting the comparison plots. The statistics like the standard deviation, mean , variance is stored for each table. These statistics can be displayed for each table, which gives a comprehensive view of the entire dataset. The data varies differently for each quantifier and its relation with the actual truth data can be seen quantitatively using the statistics provided.
 The CSV files contained the results from different quantifiers and these outputs were parsed and converted into MySQL tables using following techniques:-
