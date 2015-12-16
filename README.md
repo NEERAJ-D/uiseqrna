@@ -22,16 +22,20 @@ The Data that is used for the purpose of plotting is the output of the quantifie
 The CSV files contained the results from different quantifiers and these outputs were parsed and converted into MySQL tables using following techniques:-
 
 Parsing into SQL tables post cleaning:-
+
 LOAD DATA LOCAL INFILE 'config.pro' INTO TABLE truthtable
+
 FIELDS TERMINATED BY ',' 
+
 ENCLOSED BY '' 
+
 LINES TERMINATED BY '\r\n'
+
 IGNORE 1 LINES
+
 (col1, col2, col3, col4, col5...);
 
 Such sort of a query enabled the data to be loaded into SQL tables directly that allowed ease of processing.
-
-
 
 Problems Encountered:
 
